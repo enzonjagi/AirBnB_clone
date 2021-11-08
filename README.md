@@ -1,5 +1,5 @@
 # AirBnB_clone
-<img src="airbnb.jpeg" width=100%>
+<img src="hbnb.png" width=100%>
 
 ## Description
 (Some desc)
