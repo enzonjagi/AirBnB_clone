@@ -12,8 +12,9 @@ A `the Room SE` project aimed at replicating the `Airbnb` website/web app.
 - A table explaining, environment, installation, running, and other basic usage
 - Show an example of usage
 
+
 | Command | Description |
-| --- |
+| --- | --- |
 | `./console.py` | Opens the `(hbnb)` interpreter |
 |  `all` | Prints all string representation of all instances |
 | `create` | Creates a new instance of BaseModel |
