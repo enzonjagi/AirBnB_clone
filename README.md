@@ -12,10 +12,16 @@ A `the Room SE` project aimed at replicating the `Airbnb` website/web app.
 - A table explaining, environment, installation, running, and other basic usage
 - Show an example of usage
 
-| Usage Table |
+| Command | Description |
 | --- |
-| Empty |
-| For now |
+| `./console.py` | Opens the `(hbnb)` interpreter |
+|  `all` | Prints all string representation of all instances |
+| `create` | Creates a new instance of BaseModel |
+| `destroy` | Deletes an instance based on the class name and id |
+| `show` | Prints the string representation of an instance |
+| `update` | Updates an instance based on the class name and id |
+| `quit` | QUIT command that exits the program |
+
 
 ## File description
 
