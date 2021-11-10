@@ -2,7 +2,8 @@
 <img src="hbnb.png" width=100%>
 
 ## Description
-(Some desc)
+
+A `the Room SE` project aimed at replicating the `Airbnb` website/web app.
 
 ## Table of Contents
 (Insert table of contents)
@@ -10,6 +11,11 @@
 ## Usage
 - A table explaining, environment, installation, running, and other basic usage
 - Show an example of usage
+
+| Usage Table |
+| --- |
+| Empty |
+| For now |
 
 ## File description
 
