@@ -15,7 +15,7 @@ class HBNBCommand(cmd.Cmd):
     def do_quit(self, *arg):
         """QUIT command that exits the program"""
         return True
-    
+
     def emptyline(self):
         """Does nothing on an empty line + ENTER"""
         pass
@@ -23,6 +23,7 @@ class HBNBCommand(cmd.Cmd):
     def precmd(self, line):
         line = line.lower()
         return line
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
