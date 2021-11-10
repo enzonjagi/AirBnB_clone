@@ -14,7 +14,7 @@
 ## File description
 
 | File | Description |
-| :---: | :--- |
+| :--- | :--- |
 | `console.py` | Creates the command line intepreter |
 | `models/base_model.py` | Contains a class defining attributes and methods for other classes |
 | `models/engine/file_storage.py` | Contains the class for JSON serialization and deserialization |
