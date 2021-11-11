@@ -3,7 +3,7 @@ from models import amenity
 from models.base_model import BaseModel
 
 
-class State(BaseModel):
+class Place(BaseModel):
     city_id = ""
     user_id = ""
     name = ""
