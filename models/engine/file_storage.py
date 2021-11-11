@@ -26,18 +26,20 @@ class FileStorage():
             dict = {k: v.to_dict() for k, v in FileStorage.__objects.items()}
             json.dump(dict, f)
 
-    def imports(self):
-        """Returns the class Basemodel to avoid circular import"""
+    def classes(self):
+        """Returns the available classes to avoid circular import"""
         from models.base_model import BaseModel
 
-        return BaseModel
+        classes = {"BaseModel": BaseModel}
+        return classes
 
     def reload(self):
         """deserializes the JSON file to __objects"""
         try:
             with open(FileStorage.__file_path, "r", encoding='utf-8') as f:
                 dict = json.load(f)
-                dict = {k: self.imports()(**v) for k, v in dict.items()}
+                dict = {k: self.classes()[v["__class__"]](**v)
+                        for k, v in dict.items()}
                 FileStorage.__objects = dict
                 # print("->",FileStorage.__objects)
         except:
