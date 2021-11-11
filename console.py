@@ -2,7 +2,8 @@
 """Console module - entry point of the command interpreter"""
 import cmd
 from models.base_model import BaseModel
-from models import storage 
+from models import storage
+
 
 class HBNBCommand(cmd.Cmd):
     """Command interpreter class"""
@@ -21,12 +22,12 @@ class HBNBCommand(cmd.Cmd):
             print(base1.id)
 
     def do_show(self, arg):
-        """Prints the string representation of an instance 
+        """Prints the string representation of an instance
         based on class name and id"""
         objs = storage.all()
         args = self.parse(arg)
         if args is None:
-            return  
+            return
         for id in objs.keys():
             if id == args[0] + "." + args[1]:
                 print(objs[id])
@@ -38,7 +39,7 @@ class HBNBCommand(cmd.Cmd):
         objs = storage.all()
         args = self.parse(arg)
         if args is None:
-            return  
+            return
         for id in objs.keys():
             if id == args[0] + "." + args[1]:
                 del objs[id]
@@ -75,7 +76,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 for id in objs.keys():
                     if objs[id].__class__.__name__ == args[0]:
-                        objs_list.append(objs[id].__str__())   
+                        objs_list.append(objs[id].__str__())
         else:
             for id in objs.keys():
                 objs_list.append(objs[id].__str__())
@@ -112,6 +113,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** instance id is missing **")
                 return
             return args
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
