@@ -32,7 +32,7 @@ class FileStorage():
         from models.user import User
 
         classes = {"BaseModel": BaseModel,
-                    "User": User}
+                   "User": User}
         return classes
 
     def reload(self):
@@ -44,5 +44,5 @@ class FileStorage():
                         for k, v in dict.items()}
                 FileStorage.__objects = dict
                 # print("->",FileStorage.__objects)
-        except:
+        except Exception:
             pass
