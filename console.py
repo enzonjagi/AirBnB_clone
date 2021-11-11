@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Console module - entry point of the command interpreter"""
 import cmd
+from models.user import User
 from models.base_model import BaseModel
 from models import storage
 
@@ -11,7 +12,7 @@ class HBNBCommand(cmd.Cmd):
 
     # --- More functionality (console 0.1.0) ---
     def do_create(self, arg):
-        """Creates a new instance of BaseModel"""
+        """Creates a new instance of a class"""
         if arg == "" or arg is None:
             print("** class name missing **")
         elif arg not in storage.classes():
