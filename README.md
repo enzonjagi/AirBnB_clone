@@ -2,7 +2,8 @@
 <img src="hbnb.png" width=100%>
 
 ## Description
-(Some desc)
+
+A `the Room SE` project aimed at replicating the `Airbnb` website/web app.
 
 ## Table of Contents
 (Insert table of contents)
@@ -11,14 +12,38 @@
 - A table explaining, environment, installation, running, and other basic usage
 - Show an example of usage
 
+
+| Command | Description |
+| --- | --- |
+| `./console.py` | Opens the `(hbnb)` interpreter |
+|  `all` | Prints all string representation of all instances |
+| `create` | Creates a new instance of BaseModel |
+| `destroy` | Deletes an instance based on the class name and id |
+| `show` | Prints the string representation of an instance |
+| `update` | Updates an instance based on the class name and id |
+| `quit` | QUIT command that exits the program |
+
+
 ## File description
-- Short desc on files or models covered (a table is preferrable - updated as we continue)
+
+| File | Description |
+| :--- | :--- |
+| `console.py` | Creates the command line intepreter |
+| `models/base_model.py` | Contains a class defining attributes and methods for other classes |
+| `models/engine/file_storage.py` | Contains the class for JSON serialization and deserialization |
+| `tests/test_console.py` | Edge cases for the CLI |
+| `tests/test_base_model.py` | Edge cases for BaseModel() |
+| `tests/test_file_storage.py` | Edge cases for FileStorage() |
 
 ##  Bugs
 - Known bugs if any
 
 ## Authors
-Name and socials of Authors
+
+| AUTHOR | EMAIL | TWITTER | LINKEDIN |
+| :---: | :---: | :---: | :---: |
+| Stephen Makenzi Waweru | stevomakenzi@gmail.com | | |
+| Amos Njagi Ndungo | amosndungo@gmail.com | @_chief__omar | A. Njagi Ndungo |
 
 ## License
 No special licenses needed
