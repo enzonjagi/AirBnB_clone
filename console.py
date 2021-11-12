@@ -1,24 +1,91 @@
 #!/usr/bin/python3
 """Console module - entry point of the command interpreter"""
 import cmd
-from models.user import User
-from models.base_model import BaseModel
 from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
     """Command interpreter class"""
+
     prompt = "(hbnb) "
+
+    # --- Advanced tasks --- (prec)
+    def dict_update(self, arg):
+        """updates an instance from a dictionary"""
+        print("from dict update")
+    def adv_parser(self, line):
+        """Rearranges commands of syntax class.< command >()"""
+        args0 = line.split(".")
+        if len(args0) != 2:
+            return line
+        args1 = args0[1].split("(")
+        if len(args1) == 2 and (args1[0] == "all" or args1[0] == "count"):
+            if args1[1] == ")":
+                self.onecmd(args1[0] + " " + args0[0])
+            else:
+                return line
+        elif len(args1) == 2 and (args1[0] == "show" or args1[0] == "destroy"):
+            args2 = args1[1].split("\"")
+            if len(args2) == 3 and args2[2] == ")":
+                self.onecmd(args1[0] + " " + args0[0] + " " + args2[1])
+            elif len(args2) == 1 and args1[1] == ")":
+                self.onecmd(args1[0] + " " + args0[0])
+            else:
+                return line
+        elif len(args1) == 2 and args1[0] == "update":
+            args2 = args1[1].split("\"")
+            
+            if len(args2) == 1 and args1[1] == ")":
+                self.onecmd(args1[0] + " " + args0[0])
+            elif len(args2) == 3 and args2[2] == ")":
+                self.onecmd(args1[0] + " " + args0[0] + " " + args2[1])
+            elif args2[-1] == "})" or args2[-1] == ", {})" or\
+                 args2[-1] == ",{})" or args2[-1] == ", { })":
+                self.dict_update(line)
+            elif len(args2) == 5 and args2[4] == ")":
+                self.onecmd(args1[0] + " " + args0[0] + " " + args2[1] + " " +
+                     args2[3])
+            elif len(args2) == 7 and args2[6] == ")":
+                self.onecmd(args1[0] + " " + args0[0] + " " + args2[1] + " " +
+                     args2[3] + " " + args2[5])
+            else:
+                print(args2[-1])
+                return line
+        else:
+            return line
+
+    def default(self, line):
+        """Redirects input to adv_parser when syntax doesn't match"""
+        response = self.adv_parser(line)
+        if response == line:
+            print("*** Unknown syntax:", line)
+
+    def do_count(self, arg):
+        """Retrieves the number of instances of a class
+        Usage: <class name>.count()"""
+        objs = storage.all()
+        args = arg.split(" ")
+        if not args[0]:
+            print("** class name missing **")
+        elif args[0] not in storage.classes_dict():
+            print("** class doesn't exist **")
+        else:
+            instances = 0
+            for id in objs.keys():
+                classs = id.split(".")
+                if arg == classs[0]:
+                    instances += 1
+            print(instances)
 
     # --- More functionality (console 0.1.0) ---
     def do_create(self, arg):
         """Creates a new instance of a class"""
         if arg == "" or arg is None:
             print("** class name missing **")
-        elif arg not in storage.classes():
+        elif arg not in storage.classes_dict():
             print("** class doesn't exist **")
         else:
-            base1 = storage.classes()[arg]()
+            base1 = storage.classes_dict()[arg]()
             base1.save()
             print(base1.id)
 
@@ -72,7 +139,7 @@ class HBNBCommand(cmd.Cmd):
         objs_list = []
         if arg != "" and arg is not None:
             args = arg.split()
-            if args[0] not in storage.classes():
+            if args[0] not in storage.classes_dict():
                 print("** class doesn't exist **")
             else:
                 for id in objs.keys():
@@ -98,16 +165,13 @@ class HBNBCommand(cmd.Cmd):
         """Does nothing on an empty line + ENTER"""
         pass
 
-    def precmd(self, line):
-        return line
-
     def parse(self, arg):
         if arg == "" or arg is None:
             print("** class name missing **")
             return
         else:
             args = arg.split()
-            if args[0] not in storage.classes():
+            if args[0] not in storage.classes_dict():
                 print("** class doesn't exist **")
                 return
             elif len(args) < 2:
