@@ -15,9 +15,9 @@ A `The Room SE` group project aimed at elucidating SE students on the nitty grit
 
 ## Usage
 To use this application:
-    - Clone this repo `git clone https://github.com/StephenMakenziWaweru/AirBnB_clone`
-    - cd into it and make console.py executable `cd AirBnB_clone; chmod u+x console.py`
-    - Check below commands for more help
+ - Clone this repo ``git clone https://github.com/StephenMakenziWaweru/AirBnB_clone``
+ - cd into it and make console.py executable ``cd AirBnB_clone; chmod u+x console.py``
+ - Check below commands for more help
 
 | Command | Description |
 | --- | --- |
