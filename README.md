@@ -3,15 +3,21 @@
 
 ## Description
 
-A `the Room SE` project aimed at replicating the `Airbnb` website/web app.
+A `The Room SE` group project aimed at elucidating SE students on the nitty gritties of full web application development by replicating the `Airbnb` website/web app.
 
 ## Table of Contents
-(Insert table of contents)
+ * [Description](#Description)
+ * [Usage](#Usage)
+ * [File Description](#File-Description)
+ * [Bugs](#Bugs)
+ * [Authors](#Authors)
+ * [Licences](#Licenses)
 
 ## Usage
-- A table explaining, environment, installation, running, and other basic usage
-- Show an example of usage
-
+To use this application:
+    - Clone this repo `git clone https://github.com/StephenMakenziWaweru/AirBnB_clone`
+    - cd into it and make console.py executable `cd AirBnB_clone; chmod u+x console.py`
+    - Check below commands for more help
 
 | Command | Description |
 | --- | --- |
@@ -23,7 +29,20 @@ A `the Room SE` project aimed at replicating the `Airbnb` website/web app.
 | `update` | Updates an instance based on the class name and id |
 | `quit` | QUIT command that exits the program |
 
+### Example usage
+Launching console.py, checking available commands, and creating a User
+```
+mack@mack-pc:~/ALX/Python/AirBnB_clone$ ./console.py 
+(hbnb) help
 
+Documented commands (type help <topic>):
+========================================
+EOF  all  count  create  destroy  help  quit  show  update
+
+(hbnb) create User
+11dff8b8-f77f-4eb0-8535-42553d6155e8
+(hbnb)
+```
 ## File description
 
 | File | Description |
@@ -36,14 +55,14 @@ A `the Room SE` project aimed at replicating the `Airbnb` website/web app.
 | `tests/test_file_storage.py` | Edge cases for FileStorage() |
 
 ##  Bugs
-- Known bugs if any
+- No known bugs
 
 ## Authors
 
 | AUTHOR | EMAIL | TWITTER | LINKEDIN |
 | :---: | :---: | :---: | :---: |
-| Stephen Makenzi Waweru | stevomakenzi@gmail.com | | |
-| Amos Njagi Ndungo | amosndungo@gmail.com | @_chief__omar | A. Njagi Ndungo |
+| Stephen Makenzi Waweru | stevomakenzi@gmail.com | [@StephenMakenzi](https://twitter.com/StephenMakenzi) | [Stephen Makenzi](https://www.linkedin.com/in/stephen-makenzi/) |
+| Amos Njagi Ndungo | amosndungo@gmail.com | [@_chief__omar](https://twitter.com/_chief__omar) | [A. Njagi Ndungo](link) |
 
 ## License
 No special licenses needed
