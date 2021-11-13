@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 """
-Tests for the console
+Tests for the Place Model
 """
 
 
 import unittest
 import datetime
 
-from console import HBNBCommand
+from models.place import Place
