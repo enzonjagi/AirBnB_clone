@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """File storage module"""
 import json
+import datetime
 
 
 class FileStorage():
@@ -36,14 +37,53 @@ class FileStorage():
         from models.amenity import Amenity
         from models.review import Review
 
-        classes_dict = {"BaseModel": BaseModel,
-                   "User": User,
-                   "Place": Place,
-                   "State": State,
-                   "City": City,
-                   "Amenity": Amenity,
-                   "Review": Review}
+        classes_dict = {
+                    "BaseModel": BaseModel,
+                    "User": User,
+                    "Place": Place,
+                    "State": State,
+                    "City": City,
+                    "Amenity": Amenity,
+                    "Review": Review}
         return classes_dict
+    
+    def attr_dict(self):
+        """Returns a dict of acceptable attributes for corresponding classes"""
+        attr_dict = {
+            "Review":
+                    {   "place_id": str,
+                        "user_id": str,
+                        "text": str},
+            "Place":
+                    {   "city_id": str,
+                        "user_id": str,
+                        "name": str,
+                        "description": str,
+                        "number_rooms": int,
+                        "number_bathrooms": int,
+                        "max_guest": int,
+                        "price_by_night": int,
+                        "latitude": float,
+                        "longitude": float,
+                        "amenity_ids": list},
+            "Amenity":
+                    {   "name": str},
+            "City":
+                    {   "state_id": str,
+                        "name": str},
+            "State":
+                    {   "name": str},
+            "User":
+                    {   "email": str,
+                        "password": str,
+                        "first_name": str,
+                        "last_name": str},
+            "BaseModel":
+                    {   "id": str,
+                        "created_at": datetime.datetime,
+                        "updated_at": datetime.datetime}
+        }
+        return attr_dict
 
     def reload(self):
         """deserializes the JSON file to __objects"""
