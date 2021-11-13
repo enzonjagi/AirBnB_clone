@@ -10,7 +10,7 @@ class BaseModel():
 
     def __init__(self, *args, **kwargs):
         """Constructor  - initializes BaseModel instance"""
-        if kwargs:
+        if kwargs and kwargs is not None:
             for k in kwargs:
                 if k == "created_at":
                     self.__dict__["created_at"] = datetime.\

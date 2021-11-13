@@ -1,7 +1,10 @@
 #!/usr/bin/python3
 """Console module - entry point of the command interpreter"""
 import cmd
+import json
 from models import storage
+import re
+
 
 
 class HBNBCommand(cmd.Cmd):
@@ -10,55 +13,64 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
 
     # --- Advanced tasks --- (prec)
-    def dict_update(self, arg):
+    def dict_update(self, classname, uid, s_dict):
         """updates an instance from a dictionary"""
-        print("from dict update")
-    def adv_parser(self, line):
-        """Rearranges commands of syntax class.< command >()"""
-        args0 = line.split(".")
-        if len(args0) != 2:
-            return line
-        args1 = args0[1].split("(")
-        if len(args1) == 2 and (args1[0] == "all" or args1[0] == "count"):
-            if args1[1] == ")":
-                self.onecmd(args1[0] + " " + args0[0])
-            else:
-                return line
-        elif len(args1) == 2 and (args1[0] == "show" or args1[0] == "destroy"):
-            args2 = args1[1].split("\"")
-            if len(args2) == 3 and args2[2] == ")":
-                self.onecmd(args1[0] + " " + args0[0] + " " + args2[1])
-            elif len(args2) == 1 and args1[1] == ")":
-                self.onecmd(args1[0] + " " + args0[0])
-            else:
-                return line
-        elif len(args1) == 2 and args1[0] == "update":
-            args2 = args1[1].split("\"")
-            
-            if len(args2) == 1 and args1[1] == ")":
-                self.onecmd(args1[0] + " " + args0[0])
-            elif len(args2) == 3 and args2[2] == ")":
-                self.onecmd(args1[0] + " " + args0[0] + " " + args2[1])
-            elif args2[-1] == "})" or args2[-1] == ", {})" or\
-                 args2[-1] == ",{})" or args2[-1] == ", { })":
-                self.dict_update(line)
-            elif len(args2) == 5 and args2[4] == ")":
-                self.onecmd(args1[0] + " " + args0[0] + " " + args2[1] + " " +
-                     args2[3])
-            elif len(args2) == 7 and args2[6] == ")":
-                self.onecmd(args1[0] + " " + args0[0] + " " + args2[1] + " " +
-                     args2[3] + " " + args2[5])
-            else:
-                print(args2[-1])
-                return line
+        s = s_dict.replace("'", '"')
+        d = json.loads(s)
+        if not classname:
+            print("** class name missing **")
+        elif classname not in storage.classes():
+            print("** class doesn't exist **")
+        elif uid is None:
+            print("** instance id missing **")
         else:
-            return line
+            key = "{}.{}".format(classname, uid)
+            if key not in storage.all():
+                print("** no instance found **")
+            else:
+                attributes = storage.attributes()[classname]
+                for attribute, value in d.items():
+                    if attribute in attributes:
+                        value = attributes[attribute](value)
+                    setattr(storage.all()[key], attribute, value)
+                storage.all()[key].save()
 
-    def default(self, line):
+    def adv_parser(self, arg):
+        """Rearranges commands of syntax class.< command >()"""
+        match = re.search(r"^(\w*)\.(\w+)(?:\(([^)]*)\))$", arg)
+        if not match:
+            return arg
+        classname = match.group(1)
+        method = match.group(2)
+        args = match.group(3)
+        match_uid_and_args = re.search('^"([^"]*)"(?:, (.*))?$', args)
+        if match_uid_and_args:
+            uid = match_uid_and_args.group(1)
+            attr_or_dict = match_uid_and_args.group(2)
+        else:
+            uid = args
+            attr_or_dict = False
+
+        attr_and_value = ""
+        if method == "update" and attr_or_dict:
+            match_dict = re.search('^({.*})$', attr_or_dict)
+            if match_dict:
+                self.update_dict(classname, uid, match_dict.group(1))
+                return ""
+            match_attr_and_value = re.search(
+                '^(?:"([^"]*)")?(?:, (.*))?$', attr_or_dict)
+            if match_attr_and_value:
+                attr_and_value = (match_attr_and_value.group(
+                    1) or "") + " " + (match_attr_and_value.group(2) or "")
+        command = method + " " + classname + " " + uid + " " + attr_and_value
+        self.onecmd(command)
+        return command
+
+    def default(self, arg):
         """Redirects input to adv_parser when syntax doesn't match"""
-        response = self.adv_parser(line)
-        if response == line:
-            print("*** Unknown syntax:", line)
+        response = self.adv_parser(arg)
+        if response == arg:
+            print("*** Unknown syntax:", arg)
 
     def do_count(self, arg):
         """Retrieves the number of instances of a class
@@ -121,17 +133,45 @@ class HBNBCommand(cmd.Cmd):
         args = self.parse(arg)
         if args is None:
             return
-        elif args[0] + "." + args[1] not in objs.keys():
-            print("** no instance found **")
-        elif len(args) < 3:
-            print("** attribute name missing **")
-        elif len(args) < 4:
-            print("** value missing **")
+        s_pttn = r'^(\S+)(?:\s(\S+)(?:\s(\S+)(?:\s((?:"[^"]*")|(?:(\S)+)))?)?)?'
+        m = re.search(s_pttn, arg)
+        classname = m.group(1)
+        uid = m.group(2)
+        attribute = m.group(3)
+        value = m.group(4)
+        if not m:
+            print("** class name missing **")
+        elif classname not in storage.classes_dict():
+            print("** class doesn't exist **")
+        elif uid is None:
+            print("** instance id missing **")
         else:
-            for id in objs.keys():
-                if id == args[0] + "." + args[1]:
-                    setattr(objs[id], str(args[2]), args[3])
-                    objs[id].save()
+            key = "{}.{}".format(classname, uid)
+            if key not in storage.all():
+                print("** no instance found **")
+            elif not attribute:
+                print("** attribute name missing **")
+            elif not value:
+                print("** value missing **")
+            else:
+                cast = None
+                if not re.search('^".*"$', value):
+                    if '.' in value:
+                        cast = float
+                    else:
+                        cast = int
+                else:
+                    value = value.replace('"', '')
+                attributes = storage.attr_dict()[classname]
+                if attribute in attributes:
+                    value = attributes[attribute](value)
+                elif cast:
+                    try:
+                        value = cast(value)
+                    except ValueError:
+                        pass
+                setattr(storage.all()[key], attribute, value)
+                storage.all()[key].save()
 
     def do_all(self, arg):
         """Prints all string representation of all instances"""
@@ -166,6 +206,7 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def parse(self, arg):
+        """helper method for parsing string input"""
         if arg == "" or arg is None:
             print("** class name missing **")
             return
