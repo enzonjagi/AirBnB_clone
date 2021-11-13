@@ -47,7 +47,8 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(self.base_model.created_at, self.base_model.updated_at)
         datenow = datetime.now()
         self.testmodel = BaseModel()
-        self.assertNotEqual(self.testmodel.created_at, datenow)
+        self.assertAlmostEqual(self.testmodel.created_at, datenow)
+        self.assertAlmostEqual(self.testmodel.created_at, self.testmodel.updated_at)
         self.testmodel.save()
         self.assertNotEqual(self.testmodel.created_at, self.testmodel.updated_at)
     
