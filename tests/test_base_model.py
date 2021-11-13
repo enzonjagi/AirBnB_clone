@@ -4,10 +4,12 @@ Tests for the BaseModel
 """
 
 
-import unittest, datetime
+import unittest
+import datetime
 
 # from AirBnB_clone import models
 from models.base_model import BaseModel
+
 
 class TestBaseModel(unittest.TestCase):
     """Contains the actual tests"""
@@ -44,20 +46,22 @@ class TestBaseModel(unittest.TestCase):
         """
         self.assertTrue(hasattr(self.base_model, "created_at"))
         self.assertTrue(hasattr(self.base_model, "updated_at"))
-        self.assertEqual(self.base_model.created_at, self.base_model.updated_at)
+        self.assertEqual(self.base_model.created_at,
+                         self.base_model.updated_at)
         datenow = datetime.now()
         self.testmodel = BaseModel()
         self.assertAlmostEqual(self.testmodel.created_at, datenow)
-        self.assertAlmostEqual(self.testmodel.created_at, self.testmodel.updated_at)
+        self.assertAlmostEqual(self.testmodel.created_at,
+                               self.testmodel.updated_at)
         self.testmodel.save()
-        self.assertNotEqual(self.testmodel.created_at, self.testmodel.updated_at)
-    
+        self.assertNotEqual(self.testmodel.created_at,
+                            self.testmodel.updated_at)
+
     def test_str(self):
         """Tests the __str__ method
         The expected output should be in the format:
         [<class name>] (<self.id>) <self.__dict__>
         """
-        # self.assertEqual(self.base_model.__str__, [BaseModel] (self.base_model.id) <self.__dict__>
 
     def test_todict(self):
         """Tests the to_dict() method:
@@ -66,14 +70,19 @@ class TestBaseModel(unittest.TestCase):
         3. the datetime(created_at and updated_at should be strings
             format -> %Y-%m-%dT%H:%M:%S.%f
         """
-        self.assertTrue(type(self.base_model.to_dict), dict)
-        self.assertTrue(hasattr(self.base_model.to_dict, "__class__"))
+        model_dict = self.base_model.to_dict()
+        self.assertTrue(type(model_dict), dict)
+        for key in model_dict:
+            # check if the keys contain strings
+            self.assertTrue(type(key), str)
+            self.assertFalse(key, None)  # check if the keys are empty
 
     # def tearDown(self):
     #     """Disposes the instances of the class created"""
     #     self.base_model.dispose()
     #     self.base_model1.dispose()
     #     self.testmodel.dispose()
+
 
 if __name__ == '__main__':
     unittest.main()
