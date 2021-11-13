@@ -4,9 +4,10 @@ Tests for the BaseModel
 """
 
 
-import unittest
-from .models.base_model import BaseModel
+import unittest, datetime
 
+# from AirBnB_clone import models
+from models.base_model import BaseModel
 
 class TestBaseModel(unittest.TestCase):
     """Contains the actual tests"""
@@ -27,8 +28,8 @@ class TestBaseModel(unittest.TestCase):
         2. if instance has an id attribute
         3. if id created in each instance is unique
         """
-        self.assertTrue(hasattr(self.base_model, id))
-        self.assertTrue(hasattr(self.base_model1, id))
+        self.assertTrue(hasattr(self.base_model, "id"))
+        self.assertTrue(hasattr(self.base_model1, "id"))
         self.assertNotEqual(self.base_model.id, self.base_model1.id)
 
     def test_datetime(self):
@@ -41,12 +42,21 @@ class TestBaseModel(unittest.TestCase):
         5. create a new instance and check if datetime is
             almost equal to now
         """
+        self.assertTrue(hasattr(self.base_model, "created_at"))
+        self.assertTrue(hasattr(self.base_model, "updated_at"))
+        self.assertEqual(self.base_model.created_at, self.base_model.updated_at)
+        datenow = datetime.now()
+        self.testmodel = BaseModel()
+        self.assertNotEqual(self.testmodel.created_at, datenow)
+        self.testmodel.save()
+        self.assertNotEqual(self.testmodel.created_at, self.testmodel.updated_at)
     
-    def test_str():
+    def test_str(self):
         """Tests the __str__ method
         The expected output should be in the format:
         [<class name>] (<self.id>) <self.__dict__>
         """
+        # self.assertEqual(self.base_model.__str__, [BaseModel] (self.base_model.id) <self.__dict__>
 
     def test_todict(self):
         """Tests the to_dict() method:
@@ -55,7 +65,14 @@ class TestBaseModel(unittest.TestCase):
         3. the datetime(created_at and updated_at should be strings
             format -> %Y-%m-%dT%H:%M:%S.%f
         """
-    def tearDown(self):
-        """Disposes the instances of the class created"""
-        self.base_model.dispose()
-        self.base_model1.dispose()
+        self.assertTrue(type(self.base_model.to_dict), dict)
+        self.assertTrue(hasattr(self.base_model.to_dict, "__class__"))
+
+    # def tearDown(self):
+    #     """Disposes the instances of the class created"""
+    #     self.base_model.dispose()
+    #     self.base_model1.dispose()
+    #     self.testmodel.dispose()
+
+if __name__ == '__main__':
+    unittest.main()
