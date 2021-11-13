@@ -11,7 +11,7 @@ A `The Room SE` group project aimed at elucidating SE students on the nitty grit
  * [File Description](#File-Description)
  * [Bugs](#Bugs)
  * [Authors](#Authors)
- * [Licences](#Licenses)
+ * [Licences](#Licences)
 
 ## Usage
 To use this application:
