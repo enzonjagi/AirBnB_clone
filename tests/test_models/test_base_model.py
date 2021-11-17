@@ -18,6 +18,11 @@ class TestBaseModel(unittest.TestCase):
         '''Set up the base by creating an instance of the BaseModel'''
         self.base_model = BaseModel()
         self.base_model1 = BaseModel()
+    
+    def tearDown(self):
+        """Delete instances"""
+        del self.base_model
+        del self.base_model1
 
     def test_instances(self):
         """Tests if the instances are created"""
@@ -41,17 +46,16 @@ class TestBaseModel(unittest.TestCase):
         2. Should not be equal when save() method is called
         3. test if instances have both attributes
         4. compare to see if both attributes are equal(shouldn't)
-        5. create a new instance and check if datetime is
-            almost equal to now
+        5. create a new instance and check if datetime is almost equal to now
         """
         self.assertTrue(hasattr(self.base_model, "created_at"))
         self.assertTrue(hasattr(self.base_model, "updated_at"))
-        self.assertAlmostEqual(self.base_model.created_at,
+        self.assertNotEqual(self.base_model.created_at,
                                self.base_model.updated_at)
-        datenow = datetime.now()
+        datenow = datetime.datetime.now()
         self.testmodel = BaseModel()
-        self.assertAlmostEqual(self.testmodel.created_at, datenow)
-        self.assertEqual(self.testmodel.created_at,
+        self.assertNotEqual(self.testmodel.created_at, datenow)
+        self.assertNotEqual(self.testmodel.created_at,
                          self.testmodel.updated_at)
         self.testmodel.save()
         self.assertNotEqual(self.testmodel.created_at,

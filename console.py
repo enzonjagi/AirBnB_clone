@@ -101,8 +101,7 @@ class HBNBCommand(cmd.Cmd):
             print(base1.id)
 
     def do_show(self, arg):
-        """Prints the string representation of an instance
-        based on class name and id"""
+        """Prints the string representation of an instance"""
         objs = storage.all()
         args = self.parse(arg)
         if args is None:
@@ -132,7 +131,8 @@ class HBNBCommand(cmd.Cmd):
         args = self.parse(arg)
         if args is None:
             return
-        s_pttn = r'^(\S+)(?:\s(\S+)(?:\s(\S+)(?:\s((?:"[^"]*")|(?:(\S)+)))?)?)?'
+        s_pttn = r'^(\S+)(?:\s(\S+)(?:\s(\S+)(?:\s((?:"[^"]*")|\
+                 (?:(\S)+)))?)?)?'
         m = re.search(s_pttn, arg)
         classname = m.group(1)
         uid = m.group(2)
