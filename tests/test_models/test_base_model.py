@@ -46,7 +46,7 @@ class TestBaseModel(unittest.TestCase):
         """
         self.assertTrue(hasattr(self.base_model, "created_at"))
         self.assertTrue(hasattr(self.base_model, "updated_at"))
-        self.assertAlmostEqual(self.base_model.created_at,
+        self.assertEqual(self.base_model.created_at,
                                self.base_model.updated_at)
         datenow = datetime.now()
         self.testmodel = BaseModel()
