@@ -18,7 +18,7 @@ class TestBaseModel(unittest.TestCase):
         '''Set up the base by creating an instance of the BaseModel'''
         self.base_model = BaseModel()
         self.base_model1 = BaseModel()
-    
+
     def tearDown(self):
         """Delete instances"""
         del self.base_model
@@ -50,12 +50,12 @@ class TestBaseModel(unittest.TestCase):
         """
         self.assertTrue(hasattr(self.base_model, "created_at"))
         self.assertTrue(hasattr(self.base_model, "updated_at"))
-        
+
         datenow = datetime.datetime.now()
         self.testmodel = BaseModel()
         self.assertNotEqual(self.testmodel.created_at, datenow)
         self.assertNotEqual(self.testmodel.created_at,
-                         self.testmodel.updated_at)
+                            self.testmodel.updated_at)
         self.testmodel.save()
         self.assertNotEqual(self.testmodel.created_at,
                             self.testmodel.updated_at)

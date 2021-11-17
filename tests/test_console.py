@@ -115,9 +115,9 @@ EOF  all  count  create  destroy  help  quit  show  update
         self.assertTrue(len(return_val) == 0)
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("quit someStuff")
-        self.assertEqual("",f.getvalue())
+        self.assertEqual("", f.getvalue())
         self.assertTrue(len(f.getvalue()) == 0)
-        
+
     def test_emptyline(self):
         """Tests the emptyline method."""
         with patch('sys.stdout', new=StringIO()) as f:
