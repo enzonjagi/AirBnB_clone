@@ -6,7 +6,6 @@ from models import storage
 import re
 
 
-
 class HBNBCommand(cmd.Cmd):
     """Command interpreter class"""
 

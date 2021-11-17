@@ -19,11 +19,6 @@ class TestBaseModel(unittest.TestCase):
         self.base_model = BaseModel()
         self.base_model1 = BaseModel()
 
-    def tearDown(self):
-        """Disposes the instances of the class created"""
-        del self.base_model
-        del self.base_model1
-
     def test_instances(self):
         """Tests if the instances are created"""
         self.assertIsInstance(self.base_model, BaseModel)
@@ -51,13 +46,13 @@ class TestBaseModel(unittest.TestCase):
         """
         self.assertTrue(hasattr(self.base_model, "created_at"))
         self.assertTrue(hasattr(self.base_model, "updated_at"))
-        self.assertEqual(self.base_model.created_at,
-                         self.base_model.updated_at)
+        self.assertAlmostEqual(self.base_model.created_at,
+                               self.base_model.updated_at)
         datenow = datetime.now()
         self.testmodel = BaseModel()
         self.assertAlmostEqual(self.testmodel.created_at, datenow)
-        self.assertAlmostEqual(self.testmodel.created_at,
-                               self.testmodel.updated_at)
+        self.assertEqual(self.testmodel.created_at,
+                         self.testmodel.updated_at)
         self.testmodel.save()
         self.assertNotEqual(self.testmodel.created_at,
                             self.testmodel.updated_at)
@@ -80,7 +75,7 @@ class TestBaseModel(unittest.TestCase):
         for key in model_dict:
             # check if the keys contain strings
             self.assertTrue(type(key), str)
-            self.assertFalse(key, None)  # check if the keys are empty
+            self.assertNotEqual(key, None)  # check if the keys are empty
 
     # def tearDown(self):
     #     """Disposes the instances of the class created"""

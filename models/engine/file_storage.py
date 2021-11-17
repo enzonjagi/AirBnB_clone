@@ -38,24 +38,24 @@ class FileStorage():
         from models.review import Review
 
         classes_dict = {
-                    "BaseModel": BaseModel,
-                    "User": User,
-                    "Place": Place,
-                    "State": State,
-                    "City": City,
-                    "Amenity": Amenity,
-                    "Review": Review}
+            "BaseModel": BaseModel,
+            "User": User,
+            "Place": Place,
+            "State": State,
+            "City": City,
+            "Amenity": Amenity,
+            "Review": Review}
         return classes_dict
-    
+
     def attr_dict(self):
         """Returns a dict of acceptable attributes for corresponding classes"""
         attr_dict = {
             "Review":
-                    {   "place_id": str,
+                    {"place_id": str,
                         "user_id": str,
                         "text": str},
             "Place":
-                    {   "city_id": str,
+                    {"city_id": str,
                         "user_id": str,
                         "name": str,
                         "description": str,
@@ -67,19 +67,19 @@ class FileStorage():
                         "longitude": float,
                         "amenity_ids": list},
             "Amenity":
-                    {   "name": str},
+                    {"name": str},
             "City":
-                    {   "state_id": str,
+                    {"state_id": str,
                         "name": str},
             "State":
-                    {   "name": str},
+                    {"name": str},
             "User":
-                    {   "email": str,
+                    {"email": str,
                         "password": str,
                         "first_name": str,
                         "last_name": str},
             "BaseModel":
-                    {   "id": str,
+                    {"id": str,
                         "created_at": datetime.datetime,
                         "updated_at": datetime.datetime}
         }
