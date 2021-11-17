@@ -5,7 +5,7 @@ Tests for the BaseModel
 
 
 import unittest
-from .models.base_model import BaseModel
+from models.base_model import BaseModel
 
 
 class TestBaseModel(unittest.TestCase):
@@ -15,6 +15,11 @@ class TestBaseModel(unittest.TestCase):
         '''Set up the base by creating an instance of the BaseModel'''
         self.base_model = BaseModel()
         self.base_model1 = BaseModel()
+
+    def tearDown(self):
+        """Disposes the instances of the class created"""
+        del self.base_model
+        del self.base_model1
 
     def test_instances(self):
         """Tests if the instances are created"""
@@ -27,8 +32,8 @@ class TestBaseModel(unittest.TestCase):
         2. if instance has an id attribute
         3. if id created in each instance is unique
         """
-        self.assertTrue(hasattr(self.base_model, id))
-        self.assertTrue(hasattr(self.base_model1, id))
+        self.assertTrue(hasattr(self.base_model, "id"))
+        self.assertTrue(hasattr(self.base_model1, "id"))
         self.assertNotEqual(self.base_model.id, self.base_model1.id)
 
     def test_datetime(self):
@@ -42,7 +47,7 @@ class TestBaseModel(unittest.TestCase):
             almost equal to now
         """
     
-    def test_str():
+    def test_str(self):
         """Tests the __str__ method
         The expected output should be in the format:
         [<class name>] (<self.id>) <self.__dict__>
@@ -55,7 +60,3 @@ class TestBaseModel(unittest.TestCase):
         3. the datetime(created_at and updated_at should be strings
             format -> %Y-%m-%dT%H:%M:%S.%f
         """
-    def tearDown(self):
-        """Disposes the instances of the class created"""
-        self.base_model.dispose()
-        self.base_model1.dispose()

@@ -12,7 +12,7 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = "(hbnb) "
 
-    # --- Advanced tasks --- (prec)
+    # --- Advanced tasks ---
     def dict_update(self, classname, uid, s_dict):
         """updates an instance from a dictionary"""
         s = s_dict.replace("'", '"')
