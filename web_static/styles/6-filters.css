@@ -47,6 +47,8 @@ h4 {
     border: solid 1px #DDDDDD;
     border-radius: 4px;
     list-style-type: none;
+    padding-top: 20px;
+    padding-bottom: 20px;
     visibility: hidden;
     margin-top: 17px;
 }
@@ -56,6 +58,7 @@ h4 {
 }
 
 .popover li ul {
+    margin-top: 10px;
     list-style-type: none;
 }
 
