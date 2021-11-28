@@ -32,14 +32,12 @@
   height: 100%;
   width: 25%;
   position: relative;
-  padding: auto;
   border-right: 1px solid #dddddd;
 }
 .filters div.amenities {
   height: 100%;
   width: 25%;
   position: relative;
-  padding: auto;
   margin-left: 10px;
   margin-bottom: 10px;
 }
@@ -55,7 +53,6 @@
   display: none;
   position: absolute;
   background-color: #fafafa;
-  max-width: auto;
   border: 1px solid #dddddd;
 }
 .locations ul {
